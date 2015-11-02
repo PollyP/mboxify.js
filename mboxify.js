@@ -37,6 +37,7 @@ var mboxify = (function() {
 	}
 
 	//console.log('raw input:\n' + myinput );
+	myinput = myinput.trim();
 
 	// first, look for sender info
 	var re = /^From:*\s*(.*)$/m;
@@ -76,14 +77,16 @@ var mboxify = (function() {
 	// if last line is partial, append two NLs; otherwise append one NL
 	var len = myinput.length;
 	var lastchar = myinput[len-1];
-	//console.log('myinput: ' + lastchar.charCodeAt(0).toString(16) );
+	//console.log('mboxify: lastchar: ' + lastchar.charCodeAt(0).toString() );
 	if ( lastchar != '\r' && lastchar != '\n' ) {
+		//console.log('mboxify: adding cr');
 		myinput = myinput + '\r\n';
 	}
 	myinput = myinput + '\r\n';
 
 	// now stick the new From_ line at the beginning of the message
 	myinput = 'From ' + sender + ' ' + myasctime + '\n' + myinput;
+
 	//console.log('rewritten:\n' + myinput );
 	return myinput;
   }
